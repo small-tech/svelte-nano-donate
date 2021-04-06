@@ -1,6 +1,6 @@
 {
   "name": "@small-tech/svelte-nano-donate",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A donation component for the Nano cryptocurrency built using Svelte (which you can use in non-Svelte projects also).",
   "author": {
     "name": "Aral Balkan",
