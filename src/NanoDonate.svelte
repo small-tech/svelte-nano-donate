@@ -84,7 +84,7 @@
       <legend class='visually-hidden'>Donate NANO</legend>
       <input id='amount' type='number' min='1' bind:value={amount} on:input={updateModel}>
       <label class='unselectable visually-hidden' for='amount'>Amount</label>
-    <fieldset>
+    </fieldset>
 
     <fieldset id='currency'>
       <select id='currency' bind:value={currency} on:change={updateModel} on:blur={updateModel}>
