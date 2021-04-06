@@ -13,13 +13,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Todo
 
-  - [] Add progress indication for CoinGecko API request.
-  - [] Improve visual hierarchy and spacing/grouping.
+  - [] #1 Handle CoinGecko network error gracefully.
+  - [] #2 Add progress indication for CoinGecko API request. WIP: Needs proper positioning. Depends on #3
+  - [] #3 Stop interface from jumping between initial state and when exchange rates load and QRCode appears.
 
 ### Improved
 
   - Select box now displays similarly across browsers.
   - Shows in-page error message if wallet address is missing (development-time initialisation error).
+  - Visual hierarchy and spacing/grouping.
 
 ## [1.0.0] - 2021-04-06
 
