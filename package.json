@@ -1,0 +1,51 @@
+{
+  "name": "@small-tech/svelte-nano-donate",
+  "version": "1.0.0",
+  "description": "A donation component for the Nano cryptocurrency built using Svelte (which you can use in non-Svelte projects also).",
+  "author": {
+    "name": "Aral Balkan",
+    "email": "aral@small-tech.org",
+    "url": "https://ar.al"
+  },
+  "license": "ISC",
+  "svelte": "src/index.js",
+  "module": "dist/index.mjs",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "rollup -c",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [
+    "nano",
+    "donation",
+    "javascript",
+    "component",
+    "widget",
+    "cryptocurrency",
+    "svelte"
+  ],
+  "files": [
+    "src",
+    "dist"
+  ],
+  "funding": {
+    "type": "foundation",
+    "url": "https://small-tech.org/fund-us/"
+  },
+  "homepage": "https://github.com/small-tech/svelte-nano-donate",
+  "bugs": "https://github.com/small-tech/svelte-nano-donate/issues",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/small-tech/svelte-nano-donate.git"
+  },
+  "dependencies": {
+    "@rollup/plugin-node-resolve": "^11.2.1",
+    "qrious": "^4.0.2"
+  },
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^18.0.0",
+    "rollup": "^2.0.0",
+    "rollup-plugin-svelte": "^6.0.0",
+    "svelte": "^3.0.0"
+  }
+}

@@ -1,0 +1,17 @@
+<main>
+  <div id='nano-donate'></div>
+
+  <script type='module'>
+    import NanoDonate from './svelte-nano-donate.mjs'
+
+    const nanoDonate = new NanoDonate({
+      target: document.getElementById('nano-donate'),
+      props: {
+        amount: 10,
+        currency: 'usd',
+        address: 'nano_1hfmyyjtm4muiudw1m8dz54jry13jx8xykp9kz1mx3uqe4dtsb3yrdkjgy6g',
+        theme: {colour: '#4A90E2'}
+      }
+    })
+  </script>
+</main>
