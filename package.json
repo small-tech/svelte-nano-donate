@@ -40,7 +40,8 @@
   },
   "dependencies": {
     "@rollup/plugin-node-resolve": "^11.2.1",
-    "qrious": "^4.0.2"
+    "qrious": "^4.0.2",
+    "svelte-loading-spinners": "^0.1.4"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^18.0.0",

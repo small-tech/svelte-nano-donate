@@ -1,6 +1,7 @@
 <script>
   import { onMount } from 'svelte'
   import QRious from 'qrious'
+  import { Circle3 as NanoSpinner } from 'svelte-loading-spinners'
   import CurrencyOptions from './lib/CurrencyOptions.svelte'
   import { lighten } from './lib/QuickAndDirtyColour.mjs'
 
@@ -15,7 +16,7 @@
 
   let qrCodeView
   let qrCode
-  let exchangeRates
+  let exchangeRates = null
   let paymentLink
   let paymentMessage = ''
   let initialisationError = false
@@ -99,12 +100,15 @@
         <label class='unselectable visually-hidden' for='currency'>Currency</label>
       </fieldset>
     </form>
-
-    <p id='sendNanoLink'>
-      <a href={paymentLink}>{paymentMessage}</a>
-    </p>
-
-    <canvas bind:this={qrCodeView}></canvas>
+    <div id='output'>
+      {#if exchangeRates === null}
+        <NanoSpinner ballTopLeft='#91bced' ballTopRight='#4A90E2' ballBottomLeft='#123c6e' ballBottomRight='#206cc6' size='100' unit='%'/>
+      {/if}
+      <p id='sendNanoLink'>
+        <a href={paymentLink}>{paymentMessage}</a>
+      </p>
+      <canvas bind:this={qrCodeView}></canvas>
+    </div>
   </div>
 
   <div id='initialisationError' class:hidden={!initialisationError}>
@@ -141,12 +145,17 @@
 
   h2 {
     color: var(--colour);
+    margin-bottom: 0.5em;
     font-size: 2em;
   }
 
   h3 {
     font-size: 1.5em;
     line-height: 1;
+  }
+
+  p {
+    margin-top: 0.75em;
   }
 
   code {
@@ -169,8 +178,9 @@
   }
 
   canvas {
-    margin-bottom: 0.5em;
+    margin-bottom: 0;
     max-width: 21em;
+    width: 100%;
   }
 
   svg {
@@ -184,7 +194,6 @@
   small {
     color: var(--colour);
     font-size: 1em;
-    display: block;
     font-style: italic;
     text-align: center;
   }
@@ -235,7 +244,7 @@
   }
 
   #sendNanoLink {
-    margin-top: 0.5em;
+    margin-top: 0.75em;
     margin-bottom: 0.5em;
     padding: 0;
     width: 100%;
