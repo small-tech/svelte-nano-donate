@@ -97,7 +97,7 @@ If you don’t explicitly pass a custom `border-colour` value, it will be calcul
 
 To contribute to the development of this component, please use the discussion feature on GitHub to discuss any changes/improvements you want to make and open issues if you notice any bugs before working on a feature/fix and submitting a pull request.
 
-## Build
+### Build
 
 ```
 npm run build
