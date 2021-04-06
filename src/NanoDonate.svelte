@@ -232,7 +232,17 @@
     select {
       -moz-appearance:none !important;
       background: transparent url('data:image/gif;base64,R0lGODlhBgAGAKEDAFVVVX9/f9TU1CgmNyH5BAEKAAMALAAAAAAGAAYAAAIODA4hCDKWxlhNvmCnGwUAOw==') right center no-repeat !important;
-      background-position: calc(100% - 5px) center !important;
+      background-position: calc(100% - 0.5em) center !important;
     }
   }
+
+  /* Remove the webkit-specific default styles for the select box too */
+  @supports (-webkit-appearance:none) {
+    select {
+      -webkit-appearance:none !important;
+      background: transparent url('data:image/gif;base64,R0lGODlhBgAGAKEDAFVVVX9/f9TU1CgmNyH5BAEKAAMALAAAAAAGAAYAAAIODA4hCDKWxlhNvmCnGwUAOw==') right center no-repeat !important;
+      background-position: calc(100% - 0.5em) center !important;
+    }
+  }
+
 </style>
