@@ -2,7 +2,9 @@
 
 A [Nano](https://nano.org) donation component built using Svelte.
 
-_Note that you can [use this component in any web project](#use-in-non-svelte-apps), you __do not__ need to be using Svelte yourself._
+⯈ [Live demo](https://small-tech.org/demo/svelte-nano-donate/)
+
+___Note:__ you can [use this component in any web project](#use-in-non-svelte-apps), you __do not__ need to use Svelte yourself._
 
 ## Install
 
