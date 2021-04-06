@@ -13,12 +13,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Todo
 
-  - [] Add error message if address property is missing.
   - [] Add progress indication for CoinGecko API request.
+  - [] Improve visual hierarchy and spacing/grouping.
 
 ### Improved
 
   - Select box now displays similarly across browsers.
+  - Shows in-page error message if wallet address is missing (development-time initialisation error).
 
 ## [1.0.0] - 2021-04-06
 

@@ -5,7 +5,7 @@
   import { lighten } from './lib/QuickAndDirtyColour.mjs'
 
   // Props. Pass these to the component.
-  export let address
+  export let address = null
   export let amount = 3        // (optional)
   export let currency = 'eur'  // (optional)
   export let theme = null
@@ -18,8 +18,13 @@
   let exchangeRates
   let paymentLink
   let paymentMessage = ''
+  let initialisationError = false
 
   onMount (async () => {
+    if (address === null) {
+      initialisationError = true
+    }
+
     if (theme !== null) {
       // Apply any CSS variables that were provided in the style property.
       Object.keys(theme).forEach(cssVariable => {
@@ -79,29 +84,38 @@
     </svg>
   </h2>
 
-  <form on:submit|preventDefault>
-    <fieldset id='nanoAmount'>
-      <legend class='visually-hidden'>Donate NANO</legend>
-      <input id='amount' type='number' min='1' bind:value={amount} on:input={updateModel}>
-      <label class='unselectable visually-hidden' for='amount'>Amount</label>
-    </fieldset>
+  <div class:hidden={initialisationError}>
+    <form on:submit|preventDefault>
+      <fieldset id='nanoAmount'>
+        <legend class='visually-hidden'>Donate NANO</legend>
+        <input id='amount' type='number' min='1' bind:value={amount} on:input={updateModel}>
+        <label class='unselectable visually-hidden' for='amount'>Amount</label>
+      </fieldset>
 
-    <fieldset id='currency'>
-      <select id='currency' bind:value={currency} on:change={updateModel} on:blur={updateModel}>
-        <CurrencyOptions />
-      </select>
-      <label class='unselectable visually-hidden' for='currency'>Currency</label>
-    </fieldset>
-  </form>
+      <fieldset id='currency'>
+        <select id='currency' bind:value={currency} on:change={updateModel} on:blur={updateModel}>
+          <CurrencyOptions />
+        </select>
+        <label class='unselectable visually-hidden' for='currency'>Currency</label>
+      </fieldset>
+    </form>
 
-  <p id='sendNanoLink'>
-    <a href={paymentLink}>{paymentMessage}</a>
-  </p>
+    <p id='sendNanoLink'>
+      <a href={paymentLink}>{paymentMessage}</a>
+    </p>
 
-  <canvas bind:this={qrCodeView}></canvas>
+    <canvas bind:this={qrCodeView}></canvas>
+  </div>
+
+  <div id='initialisationError' class:hidden={!initialisationError}>
+    <h3>Initialisation error</h3>
+    <p><strong>Missing property (<code>address</code>): </strong> Please pass your wallet address to the donation component using the <code>address</code> property.</p>
+    <p><em>For detailed usage instructions, <a href='https://github.com/small-tech/svelte-nano-donate#readme'>please see the readme</a>.</em></p>
+  </div>
 
   <p><small><span>Exchange rates courtesy of </span><a href='https://www.coingecko.com/en/api'>CoinGecko API</a>. <span>Widget by </span><a href='https://small-tech.org/fund-us'>Small Technology Foundation.</a></small></p>
 </section>
+
 
 <style>
   :root {
@@ -127,6 +141,16 @@
 
   h2 {
     color: var(--colour);
+    font-size: 2em;
+  }
+
+  h3 {
+    font-size: 1.5em;
+    line-height: 1;
+  }
+
+  code {
+    font-size: 1.25em;
   }
 
   input, select, a {
@@ -182,6 +206,11 @@
     user-select: none;
   }
 
+  /* Hide items both visually and from assistive technologies. */
+  .hidden {
+    display: none;
+  }
+
   /* Hide items visually while keeping them visible to assistive technology.
     Use with caution and avoid where the content can be happily shown. */
   .visually-hidden {
@@ -195,6 +224,14 @@
     position: absolute !important;
     width: 1px !important;
     white-space: nowrap !important;
+  }
+
+  #initialisationError {
+    border: 0.5em solid red;
+    padding-left: 1em;
+    padding-right: 1em;
+    padding-bottom: 0.75em;
+    text-align: left;
   }
 
   #sendNanoLink {
@@ -244,5 +281,4 @@
       background-position: calc(100% - 0.5em) center !important;
     }
   }
-
 </style>
