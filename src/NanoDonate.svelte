@@ -82,12 +82,12 @@
   <form on:submit|preventDefault>
     <fieldset id='nanoAmount'>
       <legend class='visually-hidden'>Donate NANO</legend>
-      <input type='number' min='1' bind:value={amount} on:input={updateModel}>
+      <input id='amount' type='number' min='1' bind:value={amount} on:input={updateModel}>
       <label class='unselectable visually-hidden' for='amount'>Amount</label>
     <fieldset>
 
     <fieldset id='currency'>
-      <select bind:value={currency} on:change={updateModel} on:blur={updateModel}>
+      <select id='currency' bind:value={currency} on:change={updateModel} on:blur={updateModel}>
         <CurrencyOptions />
       </select>
       <label class='unselectable visually-hidden' for='currency'>Currency</label>
