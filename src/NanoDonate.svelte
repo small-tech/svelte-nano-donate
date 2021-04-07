@@ -46,6 +46,12 @@
     }
 
     // Get the current exchange rates for nano at the start.
+    await getExchangeRates()
+  })
+
+  async function getExchangeRates () {
+    requestError = null
+
     let response
     try {
       response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=nano&vs_currencies=usd,idr,twd,eur,krw,jpy,rub,cny,aed,ars,aud,bdt,bhd,bmd,brl,cad,chf,clp,czk,dkk,gbp,hkd,huf,ils,inr,kwd,lkr,mmk,mxn,myr,ngn,nok,nzd,php,pkr,pln,sar,sek,sgd,thb,try,uah,vef,vnd,zar,xdr')
@@ -72,7 +78,7 @@
 
     // Update the view.
     updateModel()
-  })
+  }
 
   function updateModel () {
     const priceOfCurrencyInNano = exchangeRates[currency]
@@ -132,7 +138,7 @@
     <h3>Network Error</h3>
     <div role='alert'>
       <p>Sorry, we could not load the exchange rates to calculate the price in NANO.</p>
-      <button>Try again.</button>
+      <button on:click='{getExchangeRates}'>Try again.</button>
     </div>
   </div>
 
