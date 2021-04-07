@@ -2,11 +2,18 @@
   "name": "@small-tech/svelte-nano-donate",
   "version": "1.0.1",
   "description": "A donation component for the Nano cryptocurrency built using Svelte (which you can use in non-Svelte projects also).",
-  "author": {
-    "name": "Aral Balkan",
-    "email": "aral@small-tech.org",
-    "url": "https://ar.al"
-  },
+  "contributors": [
+    {
+      "name": "Aral Balkan",
+      "email": "aral@small-tech.org",
+      "url": "https://ar.al"
+    },
+    {
+      "name": "Laura Kalbag",
+      "email": "laura@small-tech.org",
+      "url": "https://laurakalbag.com"
+    }
+  ],
   "license": "ISC",
   "svelte": "src/index.js",
   "module": "dist/index.mjs",

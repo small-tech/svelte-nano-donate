@@ -115,7 +115,7 @@ We exist in part thanks to patronage by people like you. If you share [our visio
 
 ## Copyright
 
-&copy; 2021-present [Aral Balkan](https://ar.al), [Small Technology Foundation](https://small-tech.org).
+&copy; 2021-present [Aral Balkan](https://ar.al) and [Laura Kalbag](https://laurakalbag.com), [Small Technology Foundation](https://small-tech.org).
 
 ## License
 
