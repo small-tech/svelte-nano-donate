@@ -101,14 +101,15 @@
   </form>
   <div id='output' class:hidden={initialisationError}>
     {#if exchangeRates === null}
-    <div class='loading' role='alert' aria-live='assertive'>
-      <NanoSpinner ballTopLeft='#91bced' ballTopRight='#4A90E2' ballBottomLeft='#123c6e' ballBottomRight='#206cc6' size='100' unit='%'/>
-    <p class='visually-hidden'>Loading currencies…</p>
-    </div>
+      <div class='loading' role='alert' aria-live='assertive'>
+        <NanoSpinner ballTopLeft='#91bced' ballTopRight='#4A90E2' ballBottomLeft='#123c6e' ballBottomRight='#206cc6' size='100' unit='%'/>
+        <p class='visually-hidden'>Loading currencies…</p>
+      </div>
     {/if}
     <p id='sendNanoLink'>
       <a href={paymentLink}>{paymentMessage}</a>
     </p>
+    <canvas id='qrcode-placeholder' width='1600' height='1600'></canvas>
     <canvas bind:this={qrCodeView}></canvas>
   </div>
 
@@ -135,6 +136,19 @@
     max-width: 21em;
     text-align: center;
     background: var(--background-colour);
+  }
+
+  @supports (display: grid) {
+
+    form {
+      display: grid;
+      grid-template-columns: 30% 1fr;
+      grid-template-areas: 'amount currency';
+      grid-gap: 0.5em;
+    }
+
+    #nanoAmount { grid-column: amount; }
+    #currency { grid-column: currency; }
   }
 
   /* Disable the default fieldset styles (border + spacing). */
@@ -176,6 +190,42 @@
     padding: 0.5em;
     font-size: 1.25em;
     width: 100%;
+  }
+
+  /* a placeholder canvas for before the QR code loads */
+  canvas#qrcode-placeholder {
+    /* don’t use if grid is not supported */
+    display: none;
+  }
+
+  @supports (display: grid) {
+
+    #output {
+      display: grid;
+      /* one column */
+      grid-template-columns: 100%;
+      /* 4em = height of #sendNanoLink (including margins) */
+      /* 100% = fit height of child canvas */
+      grid-template-rows: 4em 100%;
+      /* make all output elements display in place of each other */
+      grid-template-areas: "link" "output";
+    }
+
+    #output > * {
+      grid-area: output;
+    }
+
+    #output #sendNanoLink {
+      grid-area: link;
+    }
+
+    /* a placeholder canvas for before the QR code loads */
+    canvas#qrcode-placeholder {
+      /* use if grid is supported */
+      display: block;
+      /* hide behind QR code and loading spinner if they’re present */
+      z-index: -1;
+    }
   }
 
   canvas {
@@ -250,18 +300,6 @@
     width: 100%;
     text-align: center;
     font-size: 1.5em;
-  }
-
-  @supports (display: grid) {
-    form {
-      display: grid;
-      grid-template-columns: 30% 1fr;
-      grid-template-areas: 'amount currency';
-      grid-gap: 0.5em;
-    }
-
-    #nanoAmount { grid-column: amount; }
-    #currency { grid-column: currency; }
   }
 
   /* Dark mode. */
