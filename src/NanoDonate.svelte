@@ -26,6 +26,7 @@
   onMount (async () => {
     if (address === null) {
       initialisationError = true
+      return
     }
 
     prefersReducedMotion = (window.matchMedia('(prefers-reduced-motion: reduce)')).matches
