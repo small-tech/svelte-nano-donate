@@ -38,13 +38,10 @@
     "type": "git",
     "url": "https://github.com/small-tech/svelte-nano-donate.git"
   },
-  "dependencies": {
-    "@rollup/plugin-node-resolve": "^11.2.1",
-    "qrious": "^4.0.2",
-    "svelte-loading-spinners": "^0.1.4"
-  },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^18.0.0",
+    "@rollup/plugin-node-resolve": "^11.2.1",
+    "qrious": "^4.0.2",
     "rollup": "^2.0.0",
     "rollup-plugin-svelte": "^6.0.0",
     "svelte": "^3.0.0"

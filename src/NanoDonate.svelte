@@ -1,7 +1,7 @@
 <script>
   import { onMount } from 'svelte'
   import QRious from 'qrious'
-  import { Circle3 as NanoSpinner } from 'svelte-loading-spinners'
+  import NanoSpinner from './lib/NanoSpinner.svelte'
   import CurrencyOptions from './lib/CurrencyOptions.svelte'
   import { lighten } from './lib/QuickAndDirtyColour.mjs'
 
