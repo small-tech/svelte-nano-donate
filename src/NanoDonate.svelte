@@ -20,11 +20,14 @@
   let paymentLink
   let paymentMessage = ''
   let initialisationError = false
+  let prefersReducedMotion = false
 
   onMount (async () => {
     if (address === null) {
       initialisationError = true
     }
+
+    prefersReducedMotion = (window.matchMedia('(prefers-reduced-motion: reduce)')).matches
 
     if (theme !== null) {
       // Apply any CSS variables that were provided in the style property.
@@ -86,7 +89,7 @@
   </h2>
 
   <form on:submit|preventDefault class:hidden={initialisationError}>
-    <fieldset id='nanoAmount'>
+    <fieldset id='nano-amount'>
       <legend class='visually-hidden'>Donate NANO</legend>
       <input id='amount' type='number' min='1' bind:value={amount} on:input={updateModel}>
       <label class='unselectable visually-hidden' for='amount'>Amount</label>
@@ -103,18 +106,18 @@
   <div id='output' class:hidden={initialisationError}>
     {#if exchangeRates === null}
       <div class='loading' role='alert' aria-live='assertive'>
-        <NanoSpinner ballTopLeft='#91bced' ballTopRight='#4A90E2' ballBottomLeft='#123c6e' ballBottomRight='#206cc6' size='100' unit='%'/>
-        <p class='visually-hidden'>Loading currencies…</p>
+        <NanoSpinner ballTopLeft='#91bced' ballTopRight='#4A90E2' ballBottomLeft='#123c6e' ballBottomRight='#206cc6' size='100' unit='%' />
+        <p class:visually-hidden={!prefersReducedMotion}>Loading currencies…</p>
       </div>
     {/if}
-    <p id='sendNanoLink'>
+    <p id='send-nano-link'>
       <a href={paymentLink}>{paymentMessage}</a>
     </p>
     <canvas id='qrcode-placeholder' width='1600' height='1600'></canvas>
     <canvas bind:this={qrCodeView}></canvas>
   </div>
 
-  <div id='initialisationError' class:hidden={!initialisationError}>
+  <div id='initialisation-error' class:hidden={!initialisationError}>
     <h3>Initialisation error</h3>
     <p><strong>Missing property (<code>address</code>): </strong> Please pass your wallet address to the donation component using the <code>address</code> property.</p>
     <p><em>For detailed usage instructions, <a href='https://github.com/small-tech/svelte-nano-donate#readme'>please see the readme</a>.</em></p>
@@ -140,7 +143,6 @@
   }
 
   @supports (display: grid) {
-
     form {
       display: grid;
       grid-template-columns: 30% 1fr;
@@ -148,7 +150,7 @@
       grid-gap: 0.5em;
     }
 
-    #nanoAmount { grid-column: amount; }
+    #nano-amount { grid-column: amount; }
     #currency { grid-column: currency; }
   }
 
@@ -193,22 +195,24 @@
     width: 100%;
   }
 
-  /* a placeholder canvas for before the QR code loads */
+  /* A placeholder canvas for before the QR code loads. */
   canvas#qrcode-placeholder {
-    /* don’t use if grid is not supported */
+    /* Don’t use if grid is not supported. */
     display: none;
   }
 
   @supports (display: grid) {
-
     #output {
       display: grid;
-      /* one column */
+
+      /* One column. */
       grid-template-columns: 100%;
-      /* 4em = height of #sendNanoLink (including margins) */
-      /* 100% = fit height of child canvas */
+
+      /* 4em = height of #send-nano-link (including margins). */
+      /* 100% = fit height of child canvas. */
       grid-template-rows: 4em 100%;
-      /* make all output elements display in place of each other */
+
+      /* Make all output elements display in place of each other. */
       grid-template-areas: "link" "output";
     }
 
@@ -216,16 +220,25 @@
       grid-area: output;
     }
 
-    #output #sendNanoLink {
+    #output #send-nano-link {
       grid-area: link;
     }
 
-    /* a placeholder canvas for before the QR code loads */
+    /* A placeholder canvas to stop interface from jumping when the QR code loads. */
     canvas#qrcode-placeholder {
-      /* use if grid is supported */
+      /* Grid is supported, so use the placeholder. */
       display: block;
-      /* hide behind QR code and loading spinner if they’re present */
+      /* Hide behind QR code and loading spinner if they’re present. */
       z-index: -1;
+    }
+
+    .loading {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: nowrap;
+      justify-content: center;
+      align-content: flex-start;
+      align-items: center;
     }
   }
 
@@ -286,7 +299,7 @@
     white-space: nowrap !important;
   }
 
-  #initialisationError {
+  #initialisation-error {
     border: 0.5em solid red;
     padding-left: 1em;
     padding-right: 1em;
@@ -294,7 +307,7 @@
     text-align: left;
   }
 
-  #sendNanoLink {
+  #send-nano-link {
     margin-top: 0.75em;
     margin-bottom: 0.5em;
     padding: 0;
@@ -321,7 +334,7 @@
     }
   }
 
-  /* Remove the webkit-specific default styles for the select box too */
+  /* Apply the same visual style as we’re using in Firefox to select boxes on WebKit-based browsers. */
   @supports (-webkit-appearance:none) {
     select {
       -webkit-appearance:none !important;

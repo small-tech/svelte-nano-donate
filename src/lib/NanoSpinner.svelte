@@ -1,11 +1,14 @@
 <script>
+import { onMount } from "svelte";
+
+
   export let size = 60;
-  export let unit = "px";
-  export let ballTopLeft = "#FF3E00";
-  export let ballTopRight = "#F8B334";
-  export let ballBottomLeft = "#40B3FF";
-  export let ballBottomRight = "#676778";
-  export let duration = "1.5s";
+  export let unit = 'px';
+  export let ballTopLeft = '#FF3E00';
+  export let ballTopRight = '#F8B334';
+  export let ballBottomLeft = '#40B3FF';
+  export let ballBottomRight = '#676778';
+  export let duration = '1.5s';
 </script>
 
 <style>
@@ -85,25 +88,31 @@
       transform: rotate(720deg) scale(1);
     }
   }
+
+  @media(prefers-reduced-motion) {
+    .wrapper {
+      display: none;
+    }
+  }
 </style>
 
 <div
-  class="wrapper"
-  style="--size: {size}{unit}; --floatSize: {size}; --ballTopLeftColor: {ballTopLeft}; --ballTopRightColor: {ballTopRight}; --ballBottomLeftColor: {ballBottomLeft}; --ballBottomRightColor: {ballBottomRight}; --duration: {duration};"
+  class='wrapper'
+  style='--size: {size}{unit}; --floatSize: {size}; --ballTopLeftColor: {ballTopLeft}; --ballTopRightColor: {ballTopRight}; --ballBottomLeftColor: {ballBottomLeft}; --ballBottomRightColor: {ballBottomRight}; --duration: {duration};'
 >
-  <div class="inner">
-    <div class="ball-container">
-      <div class="single-ball">
-        <div class="ball ball-top-left">&nbsp;</div>
+  <div class='inner'>
+    <div class='ball-container'>
+      <div class='single-ball'>
+        <div class='ball ball-top-left'>&nbsp;</div>
       </div>
-      <div class="contener_mixte">
-        <div class="ball ball-top-right">&nbsp;</div>
+      <div class='contener_mixte'>
+        <div class='ball ball-top-right'>&nbsp;</div>
       </div>
-      <div class="contener_mixte">
-        <div class="ball ball-bottom-left">&nbsp;</div>
+      <div class='contener_mixte'>
+        <div class='ball ball-bottom-left'>&nbsp;</div>
       </div>
-      <div class="contener_mixte">
-        <div class="ball ball-bottom-right">&nbsp;</div>
+      <div class='contener_mixte'>
+        <div class='ball ball-bottom-right'>&nbsp;</div>
       </div>
     </div>
   </div>
