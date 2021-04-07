@@ -99,6 +99,7 @@
       <label class='unselectable visually-hidden' for='currency'>Currency</label>
     </fieldset>
   </form>
+
   <div id='output' class:hidden={initialisationError}>
     {#if exchangeRates === null}
       <div class='loading' role='alert' aria-live='assertive'>
@@ -267,7 +268,7 @@
 
   /* Hide items both visually and from assistive technologies. */
   .hidden {
-    display: none;
+    display: none !important;
   }
 
   /* Hide items visually while keeping them visible to assistive technology.
