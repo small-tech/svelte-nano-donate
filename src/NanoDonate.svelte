@@ -101,7 +101,10 @@
   </form>
   <div id='output' class:hidden={initialisationError}>
     {#if exchangeRates === null}
+    <div class='loading' role='alert' aria-live='assertive'>
       <NanoSpinner ballTopLeft='#91bced' ballTopRight='#4A90E2' ballBottomLeft='#123c6e' ballBottomRight='#206cc6' size='100' unit='%'/>
+    <p class='visually-hidden'>Loading currencies…</p>
+    </div>
     {/if}
     <p id='sendNanoLink'>
       <a href={paymentLink}>{paymentMessage}</a>
