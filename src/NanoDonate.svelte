@@ -179,7 +179,6 @@
 
   canvas {
     margin-bottom: 0;
-    max-width: 21em;
     width: 100%;
   }
 
