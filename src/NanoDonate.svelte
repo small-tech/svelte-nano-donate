@@ -21,6 +21,7 @@
   let paymentMessage = ''
   let initialisationError = false
   let prefersReducedMotion = false
+  let requestError = null
 
   onMount (async () => {
     if (address === null) {
@@ -45,9 +46,18 @@
     }
 
     // Get the current exchange rates for nano at the start.
-    const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=nano&vs_currencies=usd,idr,twd,eur,krw,jpy,rub,cny,aed,ars,aud,bdt,bhd,bmd,brl,cad,chf,clp,czk,dkk,gbp,hkd,huf,ils,inr,kwd,lkr,mmk,mxn,myr,ngn,nok,nzd,php,pkr,pln,sar,sek,sgd,thb,try,uah,vef,vnd,zar,xdr')
-
-    exchangeRates = (await response.json()).nano
+    let response
+    try {
+      response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=nano&vs_currencies=usd,idr,twd,eur,krw,jpy,rub,cny,aed,ars,aud,bdt,bhd,bmd,brl,cad,chf,clp,czk,dkk,gbp,hkd,huf,ils,inr,kwd,lkr,mmk,mxn,myr,ngn,nok,nzd,php,pkr,pln,sar,sek,sgd,thb,try,uah,vef,vnd,zar,xdr')
+      if (!response.ok) {
+        Promise.reject(response)
+      }
+      exchangeRates = (await response.json()).nano
+    } catch (error) {
+      requestError = error
+      console.log(error)
+      return
+    }
 
     // Initialise the QRCode (nice and large so it looks good on
     // high-resolution displays).
@@ -103,8 +113,8 @@
     </fieldset>
   </form>
 
-  <div id='output' class:hidden={initialisationError}>
-    {#if exchangeRates === null}
+  <div id='output' class:hidden={initialisationError || requestError}>
+    {#if exchangeRates === null && requestError === null}
       <div class='loading' role='alert' aria-live='assertive'>
         <NanoSpinner ballTopLeft='#91bced' ballTopRight='#4A90E2' ballBottomLeft='#123c6e' ballBottomRight='#206cc6' size='100' unit='%' />
         <p class:visually-hidden={!prefersReducedMotion}>Loading currencies…</p>
@@ -115,6 +125,15 @@
     </p>
     <canvas id='qrcode-placeholder' width='1600' height='1600'></canvas>
     <canvas bind:this={qrCodeView}></canvas>
+  </div>
+
+  <div id='network-error' class:hidden={!requestError}>
+    <canvas id='qrcode-placeholder' width='1600' height='1600'></canvas>
+    <h3>Network Error</h3>
+    <div role='alert'>
+      <p>Sorry, we could not load the exchange rates to calculate the price in NANO.</p>
+      <button>Try again.</button>
+    </div>
   </div>
 
   <div id='initialisation-error' class:hidden={!initialisationError}>
@@ -184,8 +203,7 @@
     color: var(--colour);
   }
 
-  input, select {
-    border-style: solid;
+  input, select, button, #network-error div {
     background: var(--background-colour);
     border: 0.2em solid var(--border-colour);
     border-radius: 5px;
@@ -195,6 +213,20 @@
     width: 100%;
   }
 
+  button {
+    color: var(--colour);
+    background: var(--background-colour);
+  }
+
+  button:hover {
+    border-color: var(--colour);
+  }
+
+  button:active {
+    background: var(--border-colour);
+    translate: 1px 1px;
+  }
+
   /* A placeholder canvas for before the QR code loads. */
   canvas#qrcode-placeholder {
     /* Don’t use if grid is not supported. */
@@ -202,7 +234,7 @@
   }
 
   @supports (display: grid) {
-    #output {
+    #output, #network-error {
       display: grid;
 
       /* One column. */
@@ -216,13 +248,43 @@
       grid-template-areas: "link" "output";
     }
 
-    #output > * {
-      grid-area: output;
-    }
-
     #output #send-nano-link {
       grid-area: link;
     }
+
+    #output > *, #network-error > * {
+      grid-area: output;
+    }
+
+    #network-error p, #network-error h3 {
+      color: red;
+    }
+
+    #network-error p {
+      font-size: 1em;
+    }
+
+    #network-error p:nth-of-type(2) {
+      font-style: italic;
+      font-size: 0.9em;
+      color: var(--colour);
+      filter: grayscale()
+    }
+
+    #network-error h3 {
+      grid-area: link;
+    }
+
+    #network-error div {
+      border-color: red;
+      grid-area: output;
+      color: var(--colour);
+      background-color: var(--background-colour);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
 
     /* A placeholder canvas to stop interface from jumping when the QR code loads. */
     canvas#qrcode-placeholder {
