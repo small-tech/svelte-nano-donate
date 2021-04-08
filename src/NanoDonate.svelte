@@ -10,12 +10,12 @@
   // Laura Kalbag (https://laurakalbag.com), Small Technology Foundation
   // (https://small-tech.org).
   //
-  // License: ISC.
+  // License: GPLv3.
   //
   ////////////////////////////////////////////////////////////////////////////////
 
   import { onMount } from 'svelte'
-  import QRious from 'qrious'
+  import QRious from './lib/QRious.mjs'
   import NanoSpinner from './lib/NanoSpinner.svelte'
   import CurrencyOptions from './lib/CurrencyOptions.svelte'
   import { lighten } from './lib/QuickAndDirtyColour.mjs'
