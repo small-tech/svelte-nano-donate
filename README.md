@@ -38,7 +38,7 @@ You can also customise the component by specifying properties like the initial `
     amount=5
     currency=usd
     address=nano_1hfmyyjtm4muiudw1m8dz54jry13jx8xykp9kz1mx3uqe4dtsb3yrdkjgy6g
-    theme={{colour: '#4A90E2'}}
+    theme={{colour: '#0062cc'}}
   />
 </main>
 ```
@@ -46,6 +46,8 @@ You can also customise the component by specifying properties like the initial `
 Here’s [a live demo of this example built using SvelteKit](https://small-tech.org/demo/svelte-nano-donate) ([source code](https://github.com/small-tech/svelte-nano-donate-demo/)).
 
 The `colour` value specified here will be used for the text. Also, the `border-colour` of form elements will automatically be calculated as a lighter tint of this colour, unless you specify that property explicitly.
+
+> _Please make sure you check the contrast ratio of the colours you choose for accessibility. You can do so using [Lea Verou](https://lea.verou.me/)’s [online contrast ratio tool](https://contrast-ratio.com) or, if you want to use an eyedropper tool to sample colours, a native app for your platform like [Daniel Foré](https://github.com/danrabbit)’s excellent [Harvey ](https://appcenter.elementary.io/com.github.danrabbit.harvey/) on [elementary OS](https://elementary.io/))._
 
 The component comes with automatic dark mode support.
 
@@ -94,6 +96,9 @@ The list of valid colour names for a custom `theme` object are shown here and th
 | `background-colour` | `white`            | Component background                              |
 
 If you don’t explicitly pass a custom `border-colour` value, it will be calculated automatically from the value of the `colour` property. _Note that for this automatic calculation to succeed, you must specify the value of the `colour` property in either rgb(a) or hex format (not as a CSS colour name)._
+
+> _Please make sure you check the contrast ratio of the colours you choose for accessibility. You can do so using [Lea Verou](https://lea.verou.me/)’s [online contrast ratio tool](https://contrast-ratio.com) or, if you want to use an eyedropper tool to sample colours, a native app for your platform like [Daniel Foré](https://github.com/danrabbit)’s excellent [Harvey ](https://appcenter.elementary.io/com.github.danrabbit.harvey/) on [elementary OS](https://elementary.io/))._
+
 
 ## Develop
 
