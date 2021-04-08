@@ -1,7 +1,12 @@
 <script>
-import { onMount } from "svelte";
-
-
+  //////////////////////////////////////////////////////////////////////////////////////////
+  //
+  // Inlined Circle3 spinner from svelte-loading-spinners.
+  //
+  // https://github.com/Schum123/svelte-loading-spinners/blob/master/src/Circle3.svelte
+  // License: MIT (https://github.com/Schum123/svelte-loading-spinners/blob/master/LICENSE)
+  //
+  //////////////////////////////////////////////////////////////////////////////////////////
   export let size = 60;
   export let unit = 'px';
   export let ballTopLeft = '#FF3E00';
