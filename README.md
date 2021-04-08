@@ -124,5 +124,5 @@ We exist in part thanks to patronage by people like you. If you share [our visio
 
 ## License
 
-[ISC](https://opensource.org/licenses/ISC)
+[GPL v3](https://www.gnu.org/licenses/gpl-3.0.html)
 

@@ -1,6 +1,6 @@
 {
   "name": "@small-tech/svelte-nano-donate",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "A donation component for the Nano cryptocurrency built using Svelte (which you can use in non-Svelte projects also).",
   "contributors": [
     {
@@ -14,7 +14,7 @@
       "url": "https://laurakalbag.com"
     }
   ],
-  "license": "ISC",
+  "license": "GPLv3",
   "svelte": "src/index.js",
   "module": "dist/index.mjs",
   "main": "dist/index.js",
@@ -51,8 +51,5 @@
     "rollup": "^2.0.0",
     "rollup-plugin-svelte": "^6.0.0",
     "svelte": "^3.0.0"
-  },
-  "dependencies": {
-    "qrious": "^4.0.2"
   }
 }
