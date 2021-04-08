@@ -1,4 +1,19 @@
 <script>
+  ////////////////////////////////////////////////////////////////////////////////
+  //
+  // Nano Donation component.
+  //
+  // Like this? Fund us!
+  // https://small-tech.org/fund-us
+  //
+  // Copyright © 2021-present Aral Balkan (https://ar.al) and
+  // Laura Kalbag (https://laurakalbag.com), Small Technology Foundation
+  // (https://small-tech.org).
+  //
+  // License: ISC.
+  //
+  ////////////////////////////////////////////////////////////////////////////////
+
   import { onMount } from 'svelte'
   import QRious from 'qrious'
   import NanoSpinner from './lib/NanoSpinner.svelte'
@@ -22,6 +37,8 @@
   let initialisationError = false
   let prefersReducedMotion = false
   let requestError = null
+
+  let modelReady = false
 
   onMount (async () => {
     if (address === null) {
@@ -89,6 +106,8 @@
     paymentLink = `nano://${address}?amount=${amountInRaw.toLocaleString('fullwide', { useGrouping: false })}`
     paymentMessage = `Send ${amountInNANO.toFixed(6)} NANO`
     qrCode.value = paymentLink
+
+    modelReady = true
   }
 </script>
 
@@ -122,16 +141,16 @@
 
   <div id='output' class:hidden={initialisationError || requestError}>
     {#if exchangeRates === null && requestError === null}
-      <div class='loading' role='alert' aria-live='assertive'>
+      <div class='loading' role='alert' aria-live='assertive' class:fade-out={exchangeRates !== null || requestError !== null}>
         <NanoSpinner ballTopLeft='#91bced' ballTopRight='#4A90E2' ballBottomLeft='#123c6e' ballBottomRight='#206cc6' size='100' unit='%' />
         <p class:visually-hidden={!prefersReducedMotion}>Loading currencies…</p>
       </div>
     {/if}
-    <p id='send-nano-link'>
+    <p id='send-nano-link' class:fade-in={modelReady}>
       <a href={paymentLink}>{paymentMessage}</a>
     </p>
     <canvas id='qrcode-placeholder' width='1600' height='1600'></canvas>
-    <canvas bind:this={qrCodeView}></canvas>
+    <canvas class:fade-in={modelReady} bind:this={qrCodeView}></canvas>
   </div>
 
   <div id='network-error' class:hidden={!requestError}>
@@ -300,6 +319,7 @@
   }
 
   canvas {
+    opacity: 0;
     margin-bottom: 0;
     width: 100%;
   }
@@ -336,6 +356,18 @@
     user-select: none;
   }
 
+  .fade-in, .fade-out {
+    transition: 1.25s ease all;
+  }
+
+  .fade-in {
+    opacity: 1 !important;
+  }
+
+  .fade-out {
+    opacity: 0 !important;
+  }
+
   /* Hide items both visually and from assistive technologies. */
   .hidden {
     display: none !important;
@@ -362,6 +394,7 @@
     padding-right: 1em;
     padding-bottom: 0.75em;
     text-align: left;
+    height: 428px;
   }
 
   #network-error p, #network-error h3 {
@@ -387,6 +420,7 @@
 
 
   #send-nano-link {
+    opacity: 0;
     margin-top: 0.75em;
     margin-bottom: 0.5em;
     padding: 0;
