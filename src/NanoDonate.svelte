@@ -139,7 +139,7 @@
     <h3>Network Error</h3>
     <div role='alert'>
       <p>Sorry, we could not load the exchange rates to calculate the price in NANO.</p>
-      <button on:click='{getExchangeRates}'>Try again.</button>
+      <button on:click='{getExchangeRates}'>Try again</button>
     </div>
   </div>
 
@@ -221,17 +221,23 @@
   }
 
   button {
-    color: var(--colour);
-    background: var(--background-colour);
+    color: white;
+    background: var(--colour);
+    border-color: var(--colour);
+    border-radius: 2em;
+    font-size: 1em;
+    margin-left: 1em;
+    margin-right: 1em;
+    width: auto;
   }
 
   button:hover {
-    border-color: var(--colour);
+    border-color: var(--border-colour);
   }
 
   button:active {
-    background: var(--border-colour);
-    translate: 1px 1px;
+    border-color: var(--border-colour);
+    transform: scale(0.95, 0.95);
   }
 
   /* A placeholder canvas for before the QR code loads. */
@@ -263,30 +269,12 @@
       grid-area: output;
     }
 
-    #network-error p, #network-error h3 {
-      color: red;
-    }
-
-    #network-error p {
-      font-size: 1em;
-    }
-
-    #network-error p:nth-of-type(2) {
-      font-style: italic;
-      font-size: 0.9em;
-      color: var(--colour);
-      filter: grayscale()
-    }
-
     #network-error h3 {
       grid-area: link;
     }
 
     #network-error div {
-      border-color: red;
       grid-area: output;
-      color: var(--colour);
-      background-color: var(--background-colour);
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -375,6 +363,28 @@
     padding-bottom: 0.75em;
     text-align: left;
   }
+
+  #network-error p, #network-error h3 {
+    color: #E00000;
+  }
+
+  #network-error p {
+    font-size: 1em;
+  }
+
+  #network-error p:nth-of-type(2) {
+    font-style: italic;
+    font-size: 0.9em;
+    color: var(--colour);
+    filter: grayscale()
+  }
+
+  #network-error div {
+    border-color: red;
+    color: var(--colour);
+    background-color: var(--background-colour);
+  }
+
 
   #send-nano-link {
     margin-top: 0.75em;
