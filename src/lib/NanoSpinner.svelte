@@ -3,6 +3,8 @@
   //
   // Inlined Circle3 spinner from svelte-loading-spinners.
   //
+  // Note: The version here obeys the person’s prefers reduced motion setting.
+  //
   // https://github.com/Schum123/svelte-loading-spinners/blob/master/src/Circle3.svelte
   // License: MIT (https://github.com/Schum123/svelte-loading-spinners/blob/master/LICENSE)
   //
